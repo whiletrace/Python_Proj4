@@ -7,9 +7,11 @@ from log import WorkLog
 from menu import Menu
 from utilities import Utility
 
+
 def clear():
     """Clears the screen"""
     os.system('cls' if os.name == 'nt' else 'clear')
+
 
 class Main:
 
@@ -25,7 +27,7 @@ instance vaiables: useri
         super(Main, self).__init__()
 
     def userchoice1(self):
-        """ 
+        """
         grabs and validates user choice
 
         Initialize menu object to display menu items variable menu1 prompts for
@@ -35,7 +37,7 @@ instance vaiables: useri
         Menu class and user will
 
         """
-         # grab and store user input
+        # grab and store user input
         menu = Menu()
         menu.main()
         while True:
@@ -52,8 +54,9 @@ instance vaiables: useri
                 break
         # based upon user input call method
         if menu1 == 'a':
+
             self.user_entry_data()
-        elif menu1 =='b':
+        elif menu1 == 'b':
             menu.submenu()
             self.user_search()
 
@@ -71,67 +74,82 @@ instance vaiables: useri
 
         """
 
-        # instance variables: store and pass data to 
+        # instance variables: store and pass data to
         clear()
         datalist = []
         useri = collections.namedtuple(
-                                       'useri', ['date','project_name',
-                                       'duration','optional_notes'
-                                       ])
+                                       'useri', [
+                                               'employee_name',
+                                               'date',
+                                               'project_name',
+                                               'duration',
+                                               'optional_notes'
+                                                ]
+                                       )
         # single letter varible holds booleon value
         a = True
-        # start of user input loop 
+        # start of user input loop
         while a:
-         #entry date grab input
+            # entry date grab input
             while True:
-
+                employee_name = input(
+                                      'please input a first and last name : '
+                                     )
+                pattern = re.compile("(\w?\s{1}\w?)")
+                match = pattern.fullmatch(employee_name)
+                # if not a match error i
+                if not match:
+                        print('this is not an appropriate format')
+                else:
+                    break
+            while True:
                 date = input(
-                             'please input a date for' 
-                              'the entry in the format mm/dd/yyyy: ' 
+                             'please input a date for'
+                             'the entry in the format mm/dd/yyyy: '
                              )
                 # tests input against  regex pattern if pattern pails test
                 pattern = re.compile("(\d{2}\/\d{2}\/\d{4})")
                 match = pattern.fullmatch(date)
-                #if not a match error i
+                # if not a match error i
                 if not match:
                         print('this is not an appropriate format')
                 # if match  a Utility object is instantiated
                 # date variable passed to Utility.date2string which tests
                 # string to see if its a valid date
-                #and while loop is broken 
+                # and while loop is broken
                 else:
                     test_date = Utility()
                     date = test_date.date2string(test_date.str2date(date))
-                    
+
                     break
             # entry duration grab input
             while True:
                 duration = input(
                                  'please input the duration '
                                  'of the task in minutes: '
-                                 
+
                                 )
                 # tests input against regex pattern if pattern  test
                 durpattern = re.compile("(\d+)")
                 durmatch = durpattern.fullmatch(duration)
-                #if pattern fails test
+                # if pattern fails test
                 if not durmatch:
                     print('this is not an appropriate format')
-                #if pattern passes loop breaks and values stored
+                # if pattern passes loop breaks and values stored
                 else:
                     break
-                   
+
             # project name grab input
             project_name = input("please give your project a name: ")
             # optional notes grab input
-            optional_notes = input("please add notes(optional):" )
+            optional_notes = input("please add notes(optional):")
 
             # construsction of named tupple: holds all user input from
-            user_data = useri(date, project_name, duration, optional_notes)
+            user_data = useri(employee_name, date, project_name, duration, optional_notes)
             # user_data appended to list datalist
             datalist.append(user_data)
 
-            # option create another entry or retunt main menu 
+            # option create another entry or retunt main menu
             print('\na) create a new entry\nb) return to main menu')
             choice = input('please type your choice: ')
             #if another entry continue statement is run and user
@@ -140,11 +158,11 @@ instance vaiables: useri
                 clear()
                 continue
             # if main menu
-            else: 
+            else:
                 #try to instantiate a worklog objec
                 # pass instance vaiable to WorkLog.logwrite
                 try:
-                    # 
+
                     worklog_initiate = WorkLog()
                     worklog_initiate.logwrite(datalist)
                     # confirmation of entry creation
@@ -158,26 +176,24 @@ instance vaiables: useri
                 # finally statement instantiates a new Menu()
                 # calls Menu.main() method
                 # redirects user to main menu options
-                
-    
-    
+
     def user_search(self):
         """
         user_search gathers and stores user input related to search entries
-        
+
         handles user data gathering and storage for search by date, duration
-        regex pattern and exact match. once data is gathered and stored 
+        regex pattern and exact match. once data is gathered and stored
         a WorkLog object is instantiated and the data passed to the relevant
         search method of worklog object
 
         """
         while True:
-            #prompt choose search method 
+            # prompt choose search method
             search_option = input('please choose a search option: ')
-            #if user provides a invalid response to prompt
+            # if user provides a invalid response to prompt
             if search_option not in ('a', 'b', 'c', 'd', 'e'):
                 print('this is not an available option')
-            # if response valid loop will break 
+            # if response valid loop will break
             else:
                 break
 
@@ -185,24 +201,24 @@ instance vaiables: useri
         if search_option == 'a':
             clear()
             # begin loop for entry search by date data collection
-            
+
             while True:
 
-                date =input(
+                date = input(
                                'please input a date to search '
                                'in the format mm/dd/yyyy: '
                             )
                 # tests input against  regex pattern
                 pattern = re.compile("(\d{2}\/\d{2}\/\d{4})")
                 match = pattern.fullmatch(date)
-                #if pattern fails test
+                # if pattern fails test
                 # messsage will prompt until correct format recieved
                 if not match:
                         print('this is not an appropriate format')
                         continue
-                #if usre input valid
+                # if usre input valid
                 elif match:
-                    #Utility object instantiated
+                    # Utility object instantiated
                     utility = Utility()
                     # string -> datetime object
                     str2date = utility.str2date(date)
@@ -220,15 +236,15 @@ instance vaiables: useri
                     print('could not find a matching entry')
                     # the prompt for user input begins again
                     continue
-                # if match loop breaks and search_by_date will display 
+                # if match loop breaks and search_by_date will display
                 else:
-                    
+
                     self.userchoice1()
-        #if duration prompt for duration get input
-        elif search_option =='b':
+        # if duration prompt for duration get input
+        elif search_option == 'b':
             # begin loop for entry search by duration data collection
             while True:
-                
+
                 duration = input(
                                    'please input the duration of the task '
                                    'that you want to search: '
@@ -236,15 +252,15 @@ instance vaiables: useri
                 # tests input against  regex pattern
                 durpattern = re.compile("(\d+)")
                 durmatch = durpattern.fullmatch(duration)
-                
-                #if pattern fails test
+
+                # if pattern fails test
                 # messsage will prompt until correct format recieved
                 if not durmatch:
                     print('this is not an appropriate format')
                     continue
-                #if user input valid
+                # if user input valid
                 elif durmatch:
-                    #Utility object instantiated
+                    # Utility object instantiated
                     utility = Utility()
                     # string -> timedelta
                     str2time = utility.str2time(duration)
@@ -262,13 +278,13 @@ instance vaiables: useri
                     print('could not find a matching entry')
                     # the prompt for user input begins again
                     continue
-                # if match loop breaks and search_by_date will display 
+                # if match loop breaks and search_by_date will display
                 else:
-                    
+
                     self.userchoice1()
 
         # if string  prompt for string get input
-        elif search_option =='c':
+        elif search_option == 'c':
             while True:
                 string = input(
                                 'please type string and we'
@@ -288,9 +304,9 @@ instance vaiables: useri
                     print('could not find a matching entry')
                     # the prompt for user input begins again
                     continue
-                # if match loop breaks and search_by_date will display 
+                # if match loop breaks and search_by_date will display
                 else:
-                    
+
                     self.userchoice1()
         # if pattern prompt for pattern get input
         elif search_option == 'd':
@@ -302,7 +318,7 @@ instance vaiables: useri
                                 )
                 # Worklog object instantiated
                 worklog_initiate = WorkLog()
-                #call to WorkLog.search_by_duration
+                # call to WorkLog.search_by_duration
                 # method handles search logic/ display of relevant entry
                 clear()
                 print('here are the matching entries: ')
@@ -314,15 +330,17 @@ instance vaiables: useri
                     print('could not find a matching entry')
                     # the prompt for user input begins again
                     continue
-                # if match loop breaks and search_by_date will display 
+                # if match loop breaks and search_by_date will display
                 else:
-                    
+
                     self.userchoice1()
         elif search_option == 'e':
                 clear()
                 self.userchoice1()
-#initiation of Application
+
+
+# initiation of Application
 if __name__ == '__main__':
-   a = Main()
-   a.userchoice1()
-   
+
+    a = Main()
+    a.userchoice1()
