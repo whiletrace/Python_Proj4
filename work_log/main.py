@@ -2,8 +2,7 @@ import collections
 import os
 import re
 
-
-from log import WorkLog
+from log import logwrite
 from menu import Menu
 from utilities import Utility
 
@@ -95,13 +94,7 @@ instance vaiables: useri
                 employee_name = input(
                                       'please input a first and last name : '
                                      )
-                pattern = re.compile("(\w?\s{1}\w?)")
-                match = pattern.fullmatch(employee_name)
-                # if not a match error i
-                if not match:
-                        print('this is not an appropriate format')
-                else:
-                    break
+                break
             while True:
                 date = input(
                              'please input a date for'
@@ -147,24 +140,23 @@ instance vaiables: useri
             # construsction of named tupple: holds all user input from
             user_data = useri(employee_name, date, project_name, duration, optional_notes)
             # user_data appended to list datalist
-            datalist.append(user_data)
+            datalist.append(user_data._asdict())
 
             # option create another entry or retunt main menu
             print('\na) create a new entry\nb) return to main menu')
             choice = input('please type your choice: ')
-            #if another entry continue statement is run and user
+            # if another entry continue statement is run and user
             # will be prompted for data again
             if choice == 'a':
                 clear()
                 continue
             # if main menu
             else:
-                #try to instantiate a worklog objec
+                # try to instantiate a worklog objec
                 # pass instance vaiable to WorkLog.logwrite
                 try:
 
-                    worklog_initiate = WorkLog()
-                    worklog_initiate.logwrite(datalist)
+                    logwrite(datalist)
                     # confirmation of entry creation
                     clear()
                     print('\n Thankyou your entry has been created')
@@ -177,6 +169,8 @@ instance vaiables: useri
                 # calls Menu.main() method
                 # redirects user to main menu options
 
+
+'''
     def user_search(self):
         """
         user_search gathers and stores user input related to search entries
@@ -223,7 +217,7 @@ instance vaiables: useri
                     # string -> datetime object
                     str2date = utility.str2date(date)
                     # Worklog object instantiated
-                    worklog_initiate = WorkLog()
+
                     # call to WorkLog.search_by_date mentod
                     # method handles search logic/ display of relevant entry
                     clear()
@@ -337,7 +331,7 @@ instance vaiables: useri
         elif search_option == 'e':
                 clear()
                 self.userchoice1()
-
+'''
 
 # initiation of Application
 if __name__ == '__main__':

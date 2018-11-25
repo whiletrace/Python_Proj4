@@ -1,12 +1,8 @@
-import csv
 from peewee import *
-import re
-import sqlite3
 
-from entry import Entry
 from utilities import Utility
 
-db = SqliteDatabase("log.db")
+db = SqliteDatabase("/log.db")
 
 
 class BaseModel(Model):
@@ -27,24 +23,23 @@ class Log(BaseModel):
     duration = DateTimeField()
     optional_notes = CharField(max_length=255)
 
-    def logwrite(self, input):
-        """executes the writing of user input to csv file
 
-            consumes instance varibles: useri, datalist from
-            which is passed to method as input argument
-        """
+def logwrite(entries):
+    db.connect()
+    db.create_tables([Log], safe=True)
+    """executes the writing of user input to csv file
 
-        # create a write file
-        with open('entries.csv', 'a', newline='') as csvfile:
-            # create an entry from user input(Menu)
-            fieldnames = ['date', 'project_name', 'duration', 'optional_notes']
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        consumes instance varibles: useri, datalist from
+        which is passed to method as input argument
+    """
 
-            for entry in input:
-                # conversion of named tuple to ordered dict
-                writer.writerow(entry._asdict())
+    # create a write file
+    for entry in entries:
+        Log.create(**entry)
 
-    def logread(self, csv_file):
+
+'''
+def logread(self, csv_file):
         """logread reads in data from csv file creates entry objects"""
 
         # empty list
@@ -70,3 +65,4 @@ class Log(BaseModel):
 
         # output entries
         return entries
+'''
