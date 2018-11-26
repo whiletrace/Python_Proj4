@@ -1,9 +1,19 @@
+import pdb
+
+from log import db
+from log import Log
+from utilities import Utility
+
+
 class Inspector(object):
     """docstring for Inspector"""
-    def __init__(self, arg):
+    def __init__(self):
         super(Inspector, self).__init__()
 
-    def search_by_date(self, obj):
+    def search_by_date(self, obj ):
+        pdb.set_trace()
+        
+        
         """ Handles logic for search by date
 
             instance variable: results returns a list of entries
@@ -13,19 +23,37 @@ class Inspector(object):
         """
         results = []
         utility = Utility()
+        
+        query = Log.select().dicts().where(Log.date == obj)
         # iterate through all entries
 
-        for entry in self.logread('entries.csv'):
+        for row in query :
+            results.append(row)
             # if entries match user given date
-            if obj == getattr(entry, 'date'):
-                results.append(entry)
+            
         # converts datetime objects to string for formatting for display
         for entry in results[:]:
-            setattr(entry, 'date', utility.date2string(getattr(entry, 'date')))
-            print(entry)
+            # setattr(entry, 'date', utility.date2string(getattr(entry, 'date')))
+            print(''''
+                  
+                  \nemployee: {}
 
-        return results
+                  \ndate: {}
 
+                  \nproject: {}
+
+                  \nduration: {}
+
+                  \nnotes: {}
+                  \n________________________
+                '''.format(
+                            entry.get('employee_name'), entry.get('date'), entry.get('project_name'),
+                            entry.get('duration'), entry.get('optional_notes')
+                           )
+                  )
+
+        
+'''
     # search by duration:
     def search_by_duration(self, obj):
         """ Handles logic for search by duration
@@ -100,3 +128,4 @@ class Inspector(object):
             setattr(entry, 'date', utility.date2string(getattr(entry, 'date')))
             print(entry)
         return results
+'''

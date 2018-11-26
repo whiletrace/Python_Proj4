@@ -1,8 +1,9 @@
+import pdb
 from peewee import *
 
 from utilities import Utility
 
-db = SqliteDatabase("/log.db")
+db = SqliteDatabase("log.db")
 
 
 class BaseModel(Model):
@@ -12,26 +13,28 @@ class BaseModel(Model):
 
 class Log(BaseModel):
     """WorkLog executes writing and reading entry to file
-
+        
     methods are: logwrite, logread, search_by_date, search_by_string
     search_by_pattern class variable self.entries which is a call
     to logread method instance variables: entries
     """
     employee_name = CharField(max_length=100, unique=True)
-    date = DateTimeField()
+    date = DateField(formats='%m/%d/%Y')
     project_name = CharField(max_length=25, unique=False)
-    duration = DateTimeField()
+    duration = TimeField(formats='%H/%M')
     optional_notes = CharField(max_length=255)
 
 
 def logwrite(entries):
-    db.connect()
-    db.create_tables([Log], safe=True)
-    """executes the writing of user input to csv file
+    pdb.set_trace()
+    """executes the writing of user input to LOg.db
 
         consumes instance varibles: useri, datalist from
-        which is passed to method as input argument
+        which is passed to method as entries argument
     """
+    db.connect()
+    db.create_tables([Log], safe=True)
+    
 
     # create a write file
     for entry in entries:
@@ -39,17 +42,13 @@ def logwrite(entries):
 
 
 '''
-def logread(self, csv_file):
+def logread():
         """logread reads in data from csv file creates entry objects"""
 
         # empty list
         entries = []
         # context manager pattern for
-        with open('entries.csv', newline='') as csvfile:
-            fieldnames = ['date', 'project_name', 'duration', 'optional_notes']
-            reader = csv.DictReader(csvfile, fieldnames=fieldnames)
-            # be able to iterate over entry from filefile = open('entries.csv')
-            file = open('entries.csv')
+        
             utility = Utility()
             # converts key date and key:duration values to datetime/timedelta
             for row in reader:

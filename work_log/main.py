@@ -4,6 +4,7 @@ import re
 
 from log import logwrite
 from menu import Menu
+from search import Inspector
 from utilities import Utility
 
 
@@ -21,7 +22,7 @@ methods of Main: userchoice1, user_entry_data, user_search.
 instance vaiables: useri
 
 """
-
+                    
     def __init__(self):
         super(Main, self).__init__()
 
@@ -111,8 +112,8 @@ instance vaiables: useri
                 # string to see if its a valid date
                 # and while loop is broken
                 else:
-                    test_date = Utility()
-                    date = test_date.date2string(test_date.str2date(date))
+                    utility = Utility()
+                    date = utility.str2date(date)
 
                     break
             # entry duration grab input
@@ -130,6 +131,8 @@ instance vaiables: useri
                     print('this is not an appropriate format')
                 # if pattern passes loop breaks and values stored
                 else:
+                    utility = Utility()
+                    duration = utility.str2time(duration)
                     break
 
             # project name grab input
@@ -170,7 +173,7 @@ instance vaiables: useri
                 # redirects user to main menu options
 
 
-'''
+
     def user_search(self):
         """
         user_search gathers and stores user input related to search entries
@@ -217,13 +220,13 @@ instance vaiables: useri
                     # string -> datetime object
                     str2date = utility.str2date(date)
                     # Worklog object instantiated
-
+                    search = Inspector()
                     # call to WorkLog.search_by_date mentod
                     # method handles search logic/ display of relevant entry
                     clear()
                     print('here are the matching entries: ')
                     "\n"
-                    search_results = worklog_initiate.search_by_date(str2date)
+                    search_results = search.search_by_date(str2date)
                 # if now matching entries
                 if len(search_results) == 0:
                     # message no entries
@@ -234,6 +237,7 @@ instance vaiables: useri
                 else:
 
                     self.userchoice1()
+'''
         # if duration prompt for duration get input
         elif search_option == 'b':
             # begin loop for entry search by duration data collection
