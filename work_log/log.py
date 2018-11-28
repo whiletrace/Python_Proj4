@@ -13,12 +13,12 @@ class BaseModel(Model):
 
 class Log(BaseModel):
     """WorkLog executes writing and reading entry to file
-        
+
     methods are: logwrite, logread, search_by_date, search_by_string
     search_by_pattern class variable self.entries which is a call
     to logread method instance variables: entries
     """
-    employee_name = CharField(max_length=100, unique=True)
+    employee_name = CharField(max_length=100)
     date = DateField(formats='%m/%d/%Y')
     project_name = CharField(max_length=25, unique=False)
     duration = TimeField(formats='%H/%M')
@@ -34,34 +34,8 @@ def logwrite(entries):
     """
     db.connect()
     db.create_tables([Log], safe=True)
-    
 
     # create a write file
     for entry in entries:
         Log.create(**entry)
 
-
-'''
-def logread():
-        """logread reads in data from csv file creates entry objects"""
-
-        # empty list
-        entries = []
-        # context manager pattern for
-        
-            utility = Utility()
-            # converts key date and key:duration values to datetime/timedelta
-            for row in reader:
-                for key, value in row.items():
-                    if key == 'date':
-                        # convert to datetime for search and pattern matching
-                        row[key] = utility.str2date(value)
-                    elif key == 'duration':
-                        row[key] = utility.str2time(value)
-
-                # from csv file create entry objects append to list entries
-                entries.append(Entry(**row))
-
-        # output entries
-        return entries
-'''

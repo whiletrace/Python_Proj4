@@ -93,7 +93,7 @@ instance vaiables: useri
             # entry date grab input
             while True:
                 employee_name = input(
-                                      'please input a first and last name : '
+                                      'please enter employee name : '
                                      )
                 break
             while True:
@@ -173,7 +173,6 @@ instance vaiables: useri
                 # redirects user to main menu options
 
 
-
     def user_search(self):
         """
         user_search gathers and stores user input related to search entries
@@ -237,7 +236,7 @@ instance vaiables: useri
                 else:
 
                     self.userchoice1()
-'''
+
         # if duration prompt for duration get input
         elif search_option == 'b':
             # begin loop for entry search by duration data collection
@@ -306,23 +305,21 @@ instance vaiables: useri
                 else:
 
                     self.userchoice1()
-        # if pattern prompt for pattern get input
+
         elif search_option == 'd':
             while True:
-                pattern = input(
-                                   'please input your regex'
-                                   'pattern here and we will '
-                                   'look for matching entries: '
+                string = input(
+                                'please type employee name to search for: '
                                 )
                 # Worklog object instantiated
-                worklog_initiate = WorkLog()
+                search = Inspector()
                 # call to WorkLog.search_by_duration
                 # method handles search logic/ display of relevant entry
                 clear()
                 print('here are the matching entries: ')
                 "\n"
-                search_results = worklog_initiate.search_by_pattern(pattern)
-            # if now matching entries
+                search_results = search.search_by_employee(string)
+                # if now matching entries
                 if len(search_results) == 0:
                     # message no entries
                     print('could not find a matching entry')
@@ -332,10 +329,6 @@ instance vaiables: useri
                 else:
 
                     self.userchoice1()
-        elif search_option == 'e':
-                clear()
-                self.userchoice1()
-'''
 
 # initiation of Application
 if __name__ == '__main__':
