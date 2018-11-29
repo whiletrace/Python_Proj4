@@ -11,6 +11,12 @@ class BaseModel(Model):
         database = db  # this model uses "log.db"
 
 
+def initialization():
+    db.connect()
+    db.create_tables([Log], safe=True)
+
+
+
 class Log(BaseModel):
     """WorkLog executes writing and reading entry to file
 
@@ -32,8 +38,7 @@ def logwrite(entries):
         consumes instance varibles: useri, datalist from
         which is passed to method as entries argument
     """
-    db.connect()
-    db.create_tables([Log], safe=True)
+    
 
     # create a write file
     for entry in entries:

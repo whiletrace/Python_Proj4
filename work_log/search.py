@@ -1,7 +1,6 @@
-
 import pdb
 
-from log import db
+
 from log import Log
 from utilities import Utility
 
@@ -31,27 +30,31 @@ class Inspector(object):
             results.append(row)
             # if entries match user given date
 
-        # converts datetime objects to string for formatting for display
-        for entry in results[:]:
-            # setattr(entry, 'date', utility.date2string(getattr(entry, 'date')))
-            print('''
+        if len(results)==0:
+            raise ValueError
+        else:
+            # converts datetime objects to string for formatting for display
+            for entry in results[:]:
+                # setattr(entry, 'date', utility.date2string(getattr(entry, 'date')))
+                print('''
 
-                  \nemployee: {}
+                      \nemployee: {}
 
-                  \ndate: {}
+                      \ndate: {}
 
-                  \nproject: {}
+                      \nproject: {}
 
-                  \nduration: {}
+                      \nduration: {}
 
-                  \nnotes: {}
-                  \n________________________
-                '''.format(
-                            entry.get('employee_name'), entry.get('date'), entry.get('project_name'),
-                            entry.get('duration'), entry.get('optional_notes')
-                           )
-                  )
+                      \nnotes: {}
+                      \n________________________
+                    '''.format(
+                                entry.get('employee_name'), entry.get('date'), entry.get('project_name'),
+                                entry.get('duration'), entry.get('optional_notes')
+                               )
+                      )
 
+# if now matching entries
 
     # search by duration:
     def search_by_duration(self, obj):
@@ -72,26 +75,30 @@ class Inspector(object):
             results.append(row)
             # if entries match user given date
 
-        # converts datetime objects to string for formatting for display
-        for entry in results[:]:
-            # setattr(entry, 'date', utility.date2string(getattr(entry, 'date')))
-            print('''
+        if len(results)==0:
+            raise ValueError
+        else:
+            # converts datetime objects to string for formatting for display
+            for entry in results[:]:
+                # setattr(entry, 'date', utility.date2string(getattr(entry, 'date')))
+                print('''
 
-                  \nemployee: {}
+                      \nemployee: {}
 
-                  \ndate: {}
+                      \ndate: {}
 
-                  \nproject: {}
+                      \nproject: {}
 
-                  \nduration: {}
+                      \nduration: {}
 
-                  \nnotes: {}
-                  \n________________________
-                '''.format(
-                            entry.get('employee_name'), entry.get('date'), entry.get('project_name'),
-                            entry.get('duration'), entry.get('optional_notes')
-                           )
-                  )
+                      \nnotes: {}
+                      \n________________________
+                    '''.format(
+                                entry.get('employee_name'), entry.get('date'), entry.get('project_name'),
+                                entry.get('duration'), entry.get('optional_notes')
+                               )
+                      )
+
 
     # search by exact string:
     def search_by_string(self, string):
@@ -109,26 +116,30 @@ class Inspector(object):
             results.append(row)
             # if entries match user given date
 
-        # converts datetime objects to string for formatting for display
-        for entry in results[:]:
-            # setattr(entry, 'date', utility.date2string(getattr(entry, 'date')))
-            print('''
+        if len(results)==0:
+            raise ValueError
+        else:
+            # converts datetime objects to string for formatting for display
+            for entry in results[:]:
+                # setattr(entry, 'date', utility.date2string(getattr(entry, 'date')))
+                print('''
 
-                  \nemployee: {}
+                      \nemployee: {}
 
-                  \ndate: {}
+                      \ndate: {}
 
-                  \nproject: {}
+                      \nproject: {}
 
-                  \nduration: {}
+                      \nduration: {}
 
-                  \nnotes: {}
-                  \n________________________
-                '''.format(
-                            entry.get('employee_name'), entry.get('date'), entry.get('project_name'),
-                            entry.get('duration'), entry.get('optional_notes')
-                           )
-                  )
+                      \nnotes: {}
+                      \n________________________
+                    '''.format(
+                                entry.get('employee_name'), entry.get('date'), entry.get('project_name'),
+                                entry.get('duration'), entry.get('optional_notes')
+                               )
+                      )
+
 
     def search_by_employee(self, string):
         """ Handles logic for exact search
@@ -145,23 +156,27 @@ class Inspector(object):
             results.append(row)
             # if entries match user given date
 
-        # converts datetime objects to string for formatting for display
-        for entry in results[:]:
-            # setattr(entry, 'date', utility.date2string(getattr(entry, 'date')))
-            print('''
+        if len(results)==0:
+            raise ValueError
+        else:
+            # converts datetime objects to string for formatting for display
+            for entry in results[:]:
+                # setattr(entry, 'date', utility.date2string(getattr(entry, 'date')))
+                print('''
 
-                  \nemployee: {}
+                      \nemployee: {}
 
-                  \ndate: {}
+                      \ndate: {}
 
-                  \nproject: {}
+                      \nproject: {}
 
-                  \nduration: {}
+                      \nduration: {}
 
-                  \nnotes: {}
-                  \n________________________
-                '''.format(
-                            entry.get('employee_name'), entry.get('date'), entry.get('project_name'),
-                            entry.get('duration'), entry.get('optional_notes')
-                           )
-                  )
+                      \nnotes: {}
+                      \n________________________
+                    '''.format(
+                                entry.get('employee_name'), entry.get('date'), entry.get('project_name'),
+                                entry.get('duration'), entry.get('optional_notes')
+                               )
+                      )
+

@@ -3,6 +3,7 @@ import os
 import re
 
 from log import logwrite
+from log import initializationue
 from menu import Menu
 from search import Inspector
 from utilities import Utility
@@ -22,7 +23,7 @@ methods of Main: userchoice1, user_entry_data, user_search.
 instance vaiables: useri
 
 """
-                    
+
     def __init__(self):
         super(Main, self).__init__()
 
@@ -205,7 +206,7 @@ instance vaiables: useri
                                'in the format mm/dd/yyyy: '
                             )
                 # tests input against  regex pattern
-                pattern = re.compile("(\d{2}\/\d{2}\/\d{4})")
+                pattern=re.compile("(\d{2}\/\d{2}\/\d{4})")
                 match = pattern.fullmatch(date)
                 # if pattern fails test
                 # messsage will prompt until correct format recieved
@@ -214,6 +215,7 @@ instance vaiables: useri
                         continue
                 # if usre input valid
                 elif match:
+
                     # Utility object instantiated
                     utility = Utility()
                     # string -> datetime object
@@ -222,20 +224,15 @@ instance vaiables: useri
                     search = Inspector()
                     # call to WorkLog.search_by_date mentod
                     # method handles search logic/ display of relevant entry
-                    clear()
-                    print('here are the matching entries: ')
-                    "\n"
-                    search_results = search.search_by_date(str2date)
-                # if now matching entries
-                if len(search_results) == 0:
-                    # message no entries
-                    print('could not find a matching entry')
-                    # the prompt for user input begins again
-                    continue
-                # if match loop breaks and search_by_date will display
-                else:
-
-                    self.userchoice1()
+                    try:
+                        clear()
+                        "\n"
+                        print('here are the matching entries: ')
+                        search_results = search.search_by_date(str2date)
+                        self.userchoice1()
+                    except ValueError:
+                        print('It looks like there is no matching results')
+                        self.userchoice1()
 
         # if duration prompt for duration get input
         elif search_option == 'b':
@@ -262,24 +259,18 @@ instance vaiables: useri
                     # string -> timedelta
                     str2time = utility.str2time(duration)
                     # Worklog object instantiated
-                    worklog_initiate = WorkLog()
+                    search = Inspector()
                     # call to WorkLog.search_by_duration
                     # method handles search logic/ display of relevant entry
-                    clear()
-                    print('here are the matching entries: ')
-                    "\n"
-                    search_results = worklog_initiate.search_by_duration(str2time)
-                # if now matching entries
-                if len(search_results) == 0:
-                    # message no entries
-                    print('could not find a matching entry')
-                    # the prompt for user input begins again
-                    continue
-                # if match loop breaks and search_by_date will display
-                else:
-
-                    self.userchoice1()
-
+                    try:
+                        clear()
+                        "\n"
+                        print('here are the matching entries: ')
+                        search_results = search.search_by_duration(str2time)
+                        self.userchoice1()
+                    except ValueError:
+                        print('It looks like there is no matching results')
+                        self.userchoice1()
         # if string  prompt for string get input
         elif search_option == 'c':
             while True:
@@ -288,22 +279,18 @@ instance vaiables: useri
                                 'will search against it: '
                                 )
                 # Worklog object instantiated
-                worklog_initiate = WorkLog()
+                search = Inspector()
                 # call to WorkLog.search_by_duration
                 # method handles search logic/ display of relevant entry
-                clear()
-                print('here are the matching entries: ')
-                "\n"
-                search_results = worklog_initiate.search_by_string(string)
-                # if now matching entries
-                if len(search_results) == 0:
-                    # message no entries
-                    print('could not find a matching entry')
-                    # the prompt for user input begins again
-                    continue
-                # if match loop breaks and search_by_date will display
-                else:
-
+                try:
+                    clear()
+                    "\n"
+                    print('here are the matching entries: ')
+                    search_results = search.search_by_string(string)
+                    # if now matching entries
+                    self.userchoice1()
+                except ValueError:
+                    print('It looks like there is no matching results')
                     self.userchoice1()
 
         elif search_option == 'd':
@@ -315,23 +302,19 @@ instance vaiables: useri
                 search = Inspector()
                 # call to WorkLog.search_by_duration
                 # method handles search logic/ display of relevant entry
-                clear()
-                print('here are the matching entries: ')
-                "\n"
-                search_results = search.search_by_employee(string)
-                # if now matching entries
-                if len(search_results) == 0:
-                    # message no entries
-                    print('could not find a matching entry')
-                    # the prompt for user input begins again
-                    continue
-                # if match loop breaks and search_by_date will display
-                else:
-
+                try:
+                    clear()
+                    "\n"
+                    print('here are the matching entries: ')
+                    search_results = search.search_by_employee(string)
                     self.userchoice1()
+                except ValueError:
+                    print('It looks like there is no matching results')
+                    self.userchoice1()
+
 
 # initiation of Application
 if __name__ == '__main__':
-
+    initialization()
     a = Main()
     a.userchoice1()
