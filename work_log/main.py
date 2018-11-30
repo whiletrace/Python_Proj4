@@ -3,7 +3,7 @@ import os
 import re
 
 from log import logwrite
-from log import initializationue
+from log import initialization
 from menu import Menu
 from search import Inspector
 from utilities import Utility
