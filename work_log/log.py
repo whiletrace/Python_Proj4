@@ -24,7 +24,7 @@ class Log(BaseModel):
     search_by_pattern class variable self.entries which is a call
     to logread method instance variables: entries
     """
-    employee_name = CharField(max_length=100)
+    employee_name = CharField(max_length=100, unique=False)
     date = DateField(formats='%m/%d/%Y')
     project_name = CharField(max_length=25, unique=False)
     duration = TimeField(formats='%H/%M')
@@ -42,5 +42,6 @@ def logwrite(entries):
 
     # create a write file
     for entry in entries:
+        print(entry)
         Log.create(**entry)
 

@@ -1,37 +1,54 @@
+
+import builtins
 import unittest
 from unittest.mock import patch
-from unittest.mock import MagicMock
+
 import main
 import menu
-import pdb
 
 
-@patch('__main__.main.Main', autospec=True)
+@patch('builtins.print')
+class MenuTests(unittest.TestCase):
+
+    def test_menu_instantiation(self, Mockprint):
+        testmenu = menu.Menu()
+        self.assertIsInstance(testmenu, menu.Menu)
+
+    def test_menu_main(self, Mockprint):
+        testmenu = menu.Menu()
+        testmenu.main()
+        Mockprint.assert_called()
+
+    def test_menu_submenu(self, Mockprint):
+        testmenu = menu.Menu()
+        testmenu.submenu()
+        Mockprint.assert_called_once()
+
+
+@patch('builtins.input', return_value='first last')
 class MainTests(unittest.TestCase):
 
-    def test_main(self, Main):
+    def test_clear(self, Mockinput):
+        with patch('main.os') as Mocked_os:
+            main.clear()
+            Mocked_os.system.assert_called_once()
 
-        self.assertIs(Main, main.Main)
+    def test_get_employee(self, Mockinput):
+        expected_input = main.get_empoyee()
+        self.assertEquals(expected_input, 'first last')
 
-    def test_main_call(self, Main):
-        a = Main()
-        Main.assert_called_once()
+    def test_projectname(self, Mockinput):
+        expected_input = main.get_projectname()
+        self.assertEquals(expected_input, 'first last')
 
-    def test_userchoice1(self, Main):
-        Main.userchoice1()
-        Main.userchoice1.assert_called_once()
+    def test_get_optional_notes(self, Mockinput):
+        expected_input = main.get_optional_notes()
+        self.assertEquals(expected_input, 'first last')
 
-    @patch.object(main.Menu, 'main')
-    def test_menucall(self, main_mock, Main):
+    def test_get_employ(self, Mockinput, return_value='first last'):
+        main.get_empoyee()
+        Mockinput.assert_called_once()
 
-        main.Menu.main()
-        main_mock.assert_called_once()
-
-    @patch.object(main.Menu, 'main')
-    def test_menucall(self, main_mock, Main):
-
-        main.Menu.main()
-        self.assertIsNotInstance(main_mock, main.Menu)
 
 if __name__ == '__main__':
     unittest.main()

@@ -14,55 +14,157 @@ def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-class Main:
+def get_empoyee():
+
+    # start of user input loop
+    while True:
+        employee_name = input(
+                              'please enter employee name : '
+                             )
+        clear()
+        return employee_name
+
+
+def get_date():
+    while True:
+        date = input(
+                     'please input a date for'
+                     'the entry in the format mm/dd/yyyy: '
+                     )
+        # tests input against  regex pattern if pattern pails test
+        pattern = re.compile("(\d{2}\/\d{2}\/\d{4})")
+        match = pattern.fullmatch(date)
+        # if not a match error i
+        if not match:
+                print('this is not an appropriate format')
+        # if match  a Utility object is instantiated
+        # date variable passed to Utility.date2string which tests
+        # string to see if its a valid date
+        # and while loop is broken
+        else:
+            utility = Utility()
+            date = utility.str2date(date)
+            clear()
+            return date
+
+            # entry duration grab input
+
+
+def get_duration():
+    while True:
+        duration = input(
+                         'please input the duration '
+                         'of the task in minutes: '
+
+                        )
+        # tests input against regex pattern if pattern  test
+        durpattern = re.compile("(\d+)")
+        durmatch = durpattern.fullmatch(duration)
+        # if pattern fails test
+        if not durmatch:
+            print('this is not an appropriate format')
+        # if pattern passes loop breaks and values stored
+        else:
+            utility = Utility()
+            duration = utility.str2time(duration)
+            clear()
+            return duration
+
+
+def get_projectname():
+    project_name = input("please give your project a name: ")
+    clear()
+    return project_name
+
+# project name grab input
+
+
+def get_optional_notes():
+    # optional notes grab input
+    optional_notes = input("please add notes(optional):")
+    clear()
+    return optional_notes
+
+
+def userchoice1():
+    """
+    grabs and validates user choice
+
+    Initialize menu object to display menu items variable menu1 prompts for
+    and stores user input while loop runs until user provides a valid input
+    based upon input the method calls: either self.user_entry_data method
+    or will call an instance of menu.submenu() which is a method of
+    Menu class and user will
 
     """
-Main class gathers and procecsses user input
+    # grab and store user input
+    menu = Menu()
+    menu.main()
+    while True:
+        menu1 = input(
+                        'please choose '
+                        'option a), or '
+                        'option b) '
+                     )
+        # tests for a valid resonse
+        # if user provides valid response loop will break
+        if menu1.lower() not in ('a', 'b'):
+            print("Not an appropriate choice.")
+        else:
+            break
+    # based upon user input call method
+    if menu1 == 'a':
+        clear()
+        main = Main()
+        main.user_entry_data(*user_entry_data())
+    elif menu1 == 'b':
+        menu.submenu()
+        self.user_search()
 
-methods of Main: userchoice1, user_entry_data, user_search.
-instance vaiables: useri
 
-"""
+def user_entry_data():
+    employee = get_empoyee()
+    date = get_date()
+    project_name = get_projectname()
+    duration = get_duration()
+    optional_notes = get_optional_notes()
+    return employee, date, project_name, duration, optional_notes
+
+
+def new_entry_or_menu():
+    while True:
+        print('\na) create a new entry\nb) return to main menu')
+        choice = input('please type your choice: ')
+        if choice not in ['a', 'b']:
+            print('That was not a vaild choice')
+            continue
+        else:
+            if choice == 'a':
+                clear()
+                new_entry = Main()
+                new_entry.user_entry_data(*user_entry_data())
+
+            else:
+                clear()
+                userchoice1()
+
+
+class Main:
+
+
+    """
+    Main class gathers and procecsses user input
+
+    methods of Main: userchoice1, user_entry_data, user_search.
+    instance vaiables: useri
+
+    """
 
     def __init__(self):
         super(Main, self).__init__()
 
-    def userchoice1(self):
-        """
-        grabs and validates user choice
-
-        Initialize menu object to display menu items variable menu1 prompts for
-        and stores user input while loop runs until user provides a valid input
-        based upon input the method calls: either self.user_entry_data method
-        or will call an instance of menu.submenu() which is a method of
-        Menu class and user will
-
-        """
-        # grab and store user input
-        menu = Menu()
-        menu.main()
-        while True:
-            menu1 = input(
-                            'please choose '
-                            'option a), or '
-                            'option b) '
-                         )
-            # tests for a valid resonse
-            # if user provides valid response loop will break
-            if menu1.lower() not in ('a', 'b'):
-                print("Not an appropriate choice.")
-            else:
-                break
-        # based upon user input call method
-        if menu1 == 'a':
-
-            self.user_entry_data()
-        elif menu1 == 'b':
-            menu.submenu()
-            self.user_search()
-
     # if create sub
-    def user_entry_data(self):
+    def user_entry_data(self, *function):
         """
         user_entry_data collects and processes user data for log entry
 
@@ -87,91 +189,38 @@ instance vaiables: useri
                                                'optional_notes'
                                                 ]
                                        )
-        # single letter varible holds booleon value
-        a = True
-        # start of user input loop
-        while a:
-            # entry date grab input
-            while True:
-                employee_name = input(
-                                      'please enter employee name : '
-                                     )
-                break
-            while True:
-                date = input(
-                             'please input a date for'
-                             'the entry in the format mm/dd/yyyy: '
-                             )
-                # tests input against  regex pattern if pattern pails test
-                pattern = re.compile("(\d{2}\/\d{2}\/\d{4})")
-                match = pattern.fullmatch(date)
-                # if not a match error i
-                if not match:
-                        print('this is not an appropriate format')
-                # if match  a Utility object is instantiated
-                # date variable passed to Utility.date2string which tests
-                # string to see if its a valid date
-                # and while loop is broken
-                else:
-                    utility = Utility()
-                    date = utility.str2date(date)
+        user_data = useri(*function)
 
-                    break
-            # entry duration grab input
-            while True:
-                duration = input(
-                                 'please input the duration '
-                                 'of the task in minutes: '
+        # user_data appended to list datalist
+        datalist.append(user_data._asdict())
+        print(datalist)
+        # option create another entry or retunt main menu
 
-                                )
-                # tests input against regex pattern if pattern  test
-                durpattern = re.compile("(\d+)")
-                durmatch = durpattern.fullmatch(duration)
-                # if pattern fails test
-                if not durmatch:
-                    print('this is not an appropriate format')
-                # if pattern passes loop breaks and values stored
-                else:
-                    utility = Utility()
-                    duration = utility.str2time(duration)
-                    break
+        # if another entry continue statement is run and user
+        # will be prompted for data again
 
-            # project name grab input
-            project_name = input("please give your project a name: ")
-            # optional notes grab input
-            optional_notes = input("please add notes(optional):")
+        # if main menu
+
+        # try to instantiate a worklog objec
+        # pass instance vaiable to WorkLog.logwrite
+        try:
+
+            logwrite(datalist)
+            # confirmation of entry creation
+            clear()
+            print('\n Thankyou your entry has been created')
+            '\n'
+
+        # Exception if there is a issue with entry creation
+        except ValueError:
+            print('I am sorry but the entry was not saved')
+        # finally statement instantiates a new Menu()
+        # calls Menu.main() method
+        # redirects user to main menu options
+
+# single letter varible holds booleon value
 
             # construsction of named tupple: holds all user input from
-            user_data = useri(employee_name, date, project_name, duration, optional_notes)
-            # user_data appended to list datalist
-            datalist.append(user_data._asdict())
-
-            # option create another entry or retunt main menu
-            print('\na) create a new entry\nb) return to main menu')
-            choice = input('please type your choice: ')
-            # if another entry continue statement is run and user
-            # will be prompted for data again
-            if choice == 'a':
-                clear()
-                continue
-            # if main menu
-            else:
-                # try to instantiate a worklog objec
-                # pass instance vaiable to WorkLog.logwrite
-                try:
-
-                    logwrite(datalist)
-                    # confirmation of entry creation
-                    clear()
-                    print('\n Thankyou your entry has been created')
-                    '\n'
-                    self.userchoice1()
-                # Exception if there is a issue with entry creation
-                except ValueError:
-                    print('I am sorry but the entry was not saved')
-                # finally statement instantiates a new Menu()
-                # calls Menu.main() method
-                # redirects user to main menu options
 
 
     def user_search(self):
@@ -233,7 +282,7 @@ instance vaiables: useri
                     except ValueError:
                         print('It looks like there is no matching results')
                         self.userchoice1()
-
+'''
         # if duration prompt for duration get input
         elif search_option == 'b':
             # begin loop for entry search by duration data collection
@@ -311,10 +360,10 @@ instance vaiables: useri
                 except ValueError:
                     print('It looks like there is no matching results')
                     self.userchoice1()
-
+'''
 
 # initiation of Application
 if __name__ == '__main__':
     initialization()
-    a = Main()
-    a.userchoice1()
+    userchoice1()
+    new_entry_or_menu()

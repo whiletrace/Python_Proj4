@@ -156,27 +156,23 @@ class Inspector(object):
             results.append(row)
             # if entries match user given date
 
-        if len(results)==0:
-            raise ValueError
-        else:
-            # converts datetime objects to string for formatting for display
-            for entry in results[:]:
-                # setattr(entry, 'date', utility.date2string(getattr(entry, 'date')))
-                print('''
+        # converts datetime objects to string for formatting for display
+        for entry in results[:]:
+            # setattr(entry, 'date', utility.date2string(getattr(entry, 'date')))
+            print('''
 
-                      \nemployee: {}
+                  \nemployee: {}
 
-                      \ndate: {}
+                  \ndate: {}
 
-                      \nproject: {}
+                  \nproject: {}
 
-                      \nduration: {}
+                  \nduration: {}
 
-                      \nnotes: {}
-                      \n________________________
-                    '''.format(
-                                entry.get('employee_name'), entry.get('date'), entry.get('project_name'),
-                                entry.get('duration'), entry.get('optional_notes')
-                               )
-                      )
-
+                  \nnotes: {}
+                  \n________________________
+                '''.format(
+                            entry.get('employee_name'), entry.get('date'), entry.get('project_name'),
+                            entry.get('duration'), entry.get('optional_notes')
+                           )
+                  )
