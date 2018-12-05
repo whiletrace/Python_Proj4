@@ -1,7 +1,5 @@
-import pdb
-from peewee import *
 
-from utilities import Utility
+from peewee import *
 
 db = SqliteDatabase("log.db")
 
@@ -14,7 +12,6 @@ class BaseModel(Model):
 def initialization():
     db.connect()
     db.create_tables([Log], safe=True)
-
 
 
 class Log(BaseModel):
@@ -32,16 +29,14 @@ class Log(BaseModel):
 
 
 def logwrite(entries):
-    pdb.set_trace()
+
     """executes the writing of user input to LOg.db
 
         consumes instance varibles: useri, datalist from
         which is passed to method as entries argument
     """
-    
 
     # create a write file
     for entry in entries:
         print(entry)
         Log.create(**entry)
-

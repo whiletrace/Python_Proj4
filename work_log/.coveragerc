@@ -1,0 +1,7 @@
+[run]
+
+source=
+	/Users/traceharris/Documents/Pythonlearning/Python_projects/Python_Proj4/work_log
+
+omit=
+	/Users/traceharris/Documents/Pythonlearning/Python_projects/Python_Proj4/work_log/worklog/*

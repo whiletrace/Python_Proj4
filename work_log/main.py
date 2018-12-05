@@ -1,21 +1,23 @@
-import collections
-import os
-import re
+    import collections
+    import os
+    import re
 
-from log import logwrite
-from log import initialization
-from menu import Menu
-from search import Inspector
-from utilities import Utility
+    from log import logwrite
+    from log import initialization
+    from menu import Menu
+    from search import Inspector
+    from utilities import Utility
 
 
 def clear():
+
     """Clears the screen"""
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def get_empoyee():
 
+    """ employee name get input"""
     # start of user input loop
     while True:
         employee_name = input(
@@ -51,6 +53,7 @@ def get_date():
 
 
 def get_duration():
+    """duration grab input"""
     while True:
         duration = input(
                          'please input the duration '
@@ -72,6 +75,7 @@ def get_duration():
 
 
 def get_projectname():
+    """projectname grab input"""
     project_name = input("please give your project a name: ")
     clear()
     return project_name
@@ -80,7 +84,7 @@ def get_projectname():
 
 
 def get_optional_notes():
-    # optional notes grab input
+    """optional notes grab input"""
     optional_notes = input("please add notes(optional):")
     clear()
     return optional_notes
@@ -94,7 +98,7 @@ def userchoice1():
     and stores user input while loop runs until user provides a valid input
     based upon input the method calls: either self.user_entry_data method
     or will call an instance of menu.submenu() which is a method of
-    Menu class and user will
+    Menu class
 
     """
     # grab and store user input
@@ -119,7 +123,8 @@ def userchoice1():
         main.user_entry_data(*user_entry_data())
     elif menu1 == 'b':
         menu.submenu()
-        self.user_search()
+        sub = Main()
+        sub.user_search()
 
 
 def user_entry_data():
@@ -151,11 +156,10 @@ def new_entry_or_menu():
 
 class Main:
 
-
     """
     Main class gathers and procecsses user input
 
-    methods of Main: userchoice1, user_entry_data, user_search.
+    methods of Main: user_entry_data, user_search.
     instance vaiables: useri
 
     """
@@ -168,12 +172,13 @@ class Main:
         """
         user_entry_data collects and processes user data for log entry
 
-        while loops and if else statments guide user through dataentry
-        data is collected and stored in variable inputs date, duration,
-        project_name, and optional_notes variables are used to construct named
-        tupple: instance variable useri. which is appended to instance variable
-        datalist afterall user data for entry creation is gathered return
-        value of method is instance variable datalist.
+        data is collected and stored is passed by user_entry_data() employee
+        name,date, duration, project_name, and optional_notes variables are
+        used toconstruct named tupple: instance variable useri. which is
+        appended to instance variabledatalist afterall user data for entry
+        creation is gathered returnvalue of method is instance variable
+        datalist which holds ordereddictdatalist is consumed by logwrite and is
+        written to the database.
 
         """
 
@@ -221,7 +226,6 @@ class Main:
 # single letter varible holds booleon value
 
             # construsction of named tupple: holds all user input from
-
 
     def user_search(self):
         """
@@ -278,11 +282,11 @@ class Main:
                         "\n"
                         print('here are the matching entries: ')
                         search_results = search.search_by_date(str2date)
-                        self.userchoice1()
+                        userchoice1()
                     except ValueError:
                         print('It looks like there is no matching results')
-                        self.userchoice1()
-'''
+                        userchoice1()
+
         # if duration prompt for duration get input
         elif search_option == 'b':
             # begin loop for entry search by duration data collection
@@ -316,10 +320,10 @@ class Main:
                         "\n"
                         print('here are the matching entries: ')
                         search_results = search.search_by_duration(str2time)
-                        self.userchoice1()
+                        userchoice1()
                     except ValueError:
                         print('It looks like there is no matching results')
-                        self.userchoice1()
+                        userchoice1()
         # if string  prompt for string get input
         elif search_option == 'c':
             while True:
@@ -337,10 +341,10 @@ class Main:
                     print('here are the matching entries: ')
                     search_results = search.search_by_string(string)
                     # if now matching entries
-                    self.userchoice1()
+                    userchoice1()
                 except ValueError:
                     print('It looks like there is no matching results')
-                    self.userchoice1()
+                    userchoice1()
 
         elif search_option == 'd':
             while True:
@@ -356,11 +360,11 @@ class Main:
                     "\n"
                     print('here are the matching entries: ')
                     search_results = search.search_by_employee(string)
-                    self.userchoice1()
+                    userchoice1()
                 except ValueError:
                     print('It looks like there is no matching results')
-                    self.userchoice1()
-'''
+                    userchoice1()
+
 
 # initiation of Application
 if __name__ == '__main__':
