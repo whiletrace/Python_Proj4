@@ -1,12 +1,12 @@
-    import collections
-    import os
-    import re
+import collections
+import os
+import re
 
-    from log import logwrite
-    from log import initialization
-    from menu import Menu
-    from search import Inspector
-    from utilities import Utility
+from log import logwrite
+from log import initialization
+from menu import Menu
+from search import Inspector
+from utilities import Utility
 
 
 def clear():
