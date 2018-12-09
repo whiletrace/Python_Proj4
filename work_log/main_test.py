@@ -1,6 +1,9 @@
 import unittest
+import pdb
 from unittest.mock import patch
-
+from unittest.mock import MagicMock
+from unittest.mock import Mock
+import datetime
 import main
 import menu
 import utilities
@@ -66,13 +69,35 @@ class MainTests(unittest.TestCase):
         Mockinput.side_effect = user_Input
 
         expected_input = main.get_date()
-        self.assertEquals(expected_input, utilities.datetime(1999, 12, 23, 0, 0))
+        self.assertEquals(expected_input, utilities.datetime(
+                                                             1999, 12,
+                                                             23, 0,
+                                                             0
+                                                             ))
 
     def test_get_duration(self, Mockinput):
         user_Input = ['123']
         Mockinput.side_effect = user_Input
         expected_input = main.get_duration()
         self.assertEquals(expected_input, utilities.timedelta(seconds=7380))
+
+    def test_user_choice(self, Mockinput,):
+        user_input = ['a']
+        Mockinput.side_effect = user_input
+        test_result = main.userchoice1()
+        self.assertEquals(test_result, 'a')
+
+
+class UserChoicetests(unittest.TestCase):
+
+    @patch('builtins.input', side_effect=['a'])
+    @patch('main.Main.user_entry_data')
+    def test_user_choice(self, Mockinput, MockData):
+        m = main.Main()
+        m.user_entry_data = MagicMock()
+        main.userchoice1()
+        MockData.assert_called_once()
+
 
 
 if __name__ == '__main__':

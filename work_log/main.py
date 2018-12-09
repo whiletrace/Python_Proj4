@@ -120,14 +120,14 @@ def userchoice1():
     if menu1 == 'a':
         clear()
         main = Main()
-        main.user_entry_data(*user_entry_data())
+        main.user_entry_data(*data_collection())
     elif menu1 == 'b':
         menu.submenu()
         sub = Main()
         sub.user_search()
 
 
-def user_entry_data():
+def data_collection():
     employee = get_empoyee()
     date = get_date()
     project_name = get_projectname()
@@ -147,7 +147,7 @@ def new_entry_or_menu():
             if choice == 'a':
                 clear()
                 new_entry = Main()
-                new_entry.user_entry_data(*user_entry_data())
+                new_entry.user_entry_data(*data_collection())
 
             else:
                 clear()
@@ -364,6 +364,9 @@ class Main:
                 except ValueError:
                     print('It looks like there is no matching results')
                     userchoice1()
+        elif search_option == 'e':
+            clear()
+            userchoice1()
 
 
 # initiation of Application
