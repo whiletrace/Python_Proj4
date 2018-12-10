@@ -1,16 +1,16 @@
 import collections
 import os
 import re
-
+import pdb
 from log import logwrite
 from log import initialization
 from menu import Menu
 from search import Inspector
 from utilities import Utility
+pdb.set_trace()
 
 
 def clear():
-
     """Clears the screen"""
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -92,14 +92,11 @@ def get_optional_notes():
 
 def userchoice1():
     """
-    grabs and validates user choice
+    grabs and validates user choice which determines
 
     Initialize menu object to display menu items variable menu1 prompts for
     and stores user input while loop runs until user provides a valid input
-    based upon input the method calls: either self.user_entry_data method
-    or will call an instance of menu.submenu() which is a method of
-    Menu class
-
+    based upon input the method calls: stores returns input for to passeed
     """
     # grab and store user input
     menu = Menu()
@@ -114,17 +111,27 @@ def userchoice1():
         # if user provides valid response loop will break
         if menu1.lower() not in ('a', 'b'):
             print("Not an appropriate choice.")
+        if menu1 == 'a':
+            return menu1
+
+        if menu1 == 'b':
+            return menu1
+
+
+def new_entry_or_menu():
+    while True:
+        print('\na) create a new entry\nb) return to main menu')
+        entryorMain = input('please type your choice: ')
+        if entryorMain not in ['a', 'b']:
+            print('That was not a vaild choice')
+            continue
         else:
-            break
-    # based upon user input call method
-    if menu1 == 'a':
-        clear()
-        main = Main()
-        main.user_entry_data(*data_collection())
-    elif menu1 == 'b':
-        menu.submenu()
-        sub = Main()
-        sub.user_search()
+            if entryorMain == 'a':
+                clear()
+                return entryorMain
+            else:
+                clear()
+                return entryorMain
 
 
 def data_collection():
@@ -136,22 +143,37 @@ def data_collection():
     return employee, date, project_name, duration, optional_notes
 
 
-def new_entry_or_menu():
-    while True:
-        print('\na) create a new entry\nb) return to main menu')
-        choice = input('please type your choice: ')
-        if choice not in ['a', 'b']:
-            print('That was not a vaild choice')
-            continue
-        else:
-            if choice == 'a':
-                clear()
-                new_entry = Main()
-                new_entry.user_entry_data(*data_collection())
+def data_2db():
+    clear()
+    main = Main()
+    main.user_entry_data(*data_collection())
 
-            else:
-                clear()
-                userchoice1()
+
+def search_initiation():
+    main = Main()
+    main.user_search()
+
+
+def submenu():
+    clear()
+    menu = Menu()
+    menu.submenu()
+
+
+def app():
+    while True:
+        main_m_input = userchoice1()
+        if main_m_input == 'a':
+            data_2db()
+            another_entry_hmm = new_entry_or_menu()
+            while True:
+                if another_entry_hmm == 'a':
+                    data_2db()
+                else:
+                    break
+        elif main_m_input == 'b':
+            submenu()
+            search_initiation()
 
 
 class Main:
@@ -371,6 +393,4 @@ class Main:
 
 # initiation of Application
 if __name__ == '__main__':
-    initialization()
-    userchoice1()
-    new_entry_or_menu()
+    app()

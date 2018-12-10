@@ -81,24 +81,6 @@ class MainTests(unittest.TestCase):
         expected_input = main.get_duration()
         self.assertEquals(expected_input, utilities.timedelta(seconds=7380))
 
-    def test_user_choice(self, Mockinput,):
-        user_input = ['a']
-        Mockinput.side_effect = user_input
-        test_result = main.userchoice1()
-        self.assertEquals(test_result, 'a')
-
-
-class UserChoicetests(unittest.TestCase):
-
-    @patch('builtins.input', side_effect=['a'])
-    @patch('main.Main.user_entry_data')
-    def test_user_choice(self, Mockinput, MockData):
-        m = main.Main()
-        m.user_entry_data = MagicMock()
-        main.userchoice1()
-        MockData.assert_called_once()
-
-
 
 if __name__ == '__main__':
     unittest.main()

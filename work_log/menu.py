@@ -21,7 +21,6 @@ class Menu(object):
 
     def submenu(self):
         """ create menu items for search entries"""
-        clear()
         print(
               '''search options:\n
                  a) search by date
