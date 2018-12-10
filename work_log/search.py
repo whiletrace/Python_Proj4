@@ -29,18 +29,8 @@ class Inspector(object):
             # formats and prints query results to screen
             for entry in results[:]:
 
-                print('''
-
-                      \nemployee: {}
-
-                      \ndate: {}
-
-                      \nproject: {}
-
-                      \nduration: {}
-
-                      \nnotes: {}
-                      \n________________________
+                print(''' employee: {}   date: {}   project: {}   duration: {}   notes: {}
+                      \n___________________________________________________________________________
                     '''.format(
                                 entry.get('employee_name'),
                                 entry.get('date'),

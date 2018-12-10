@@ -1,13 +1,13 @@
 import collections
 import os
 import re
-import pdb
+
+
 from log import logwrite
 from log import initialization
 from menu import Menu
 from search import Inspector
 from utilities import Utility
-pdb.set_trace()
 
 
 def clear():
@@ -165,8 +165,8 @@ def app():
         main_m_input = userchoice1()
         if main_m_input == 'a':
             data_2db()
-            another_entry_hmm = new_entry_or_menu()
             while True:
+                another_entry_hmm = new_entry_or_menu()
                 if another_entry_hmm == 'a':
                     data_2db()
                 else:
@@ -302,12 +302,12 @@ class Main:
                     try:
                         clear()
                         "\n"
-                        print('here are the matching entries: ')
+                        print('here are the matching entries: \n')
                         search_results = search.search_by_date(str2date)
-                        userchoice1()
+                        app()
                     except ValueError:
                         print('It looks like there is no matching results')
-                        userchoice1()
+                        app()
 
         # if duration prompt for duration get input
         elif search_option == 'b':
@@ -340,12 +340,12 @@ class Main:
                     try:
                         clear()
                         "\n"
-                        print('here are the matching entries: ')
+                        print('here are the matching entries: \n')
                         search_results = search.search_by_duration(str2time)
-                        userchoice1()
+                        app()
                     except ValueError:
                         print('It looks like there is no matching results')
-                        userchoice1()
+                        app()
         # if string  prompt for string get input
         elif search_option == 'c':
             while True:
@@ -363,10 +363,10 @@ class Main:
                     print('here are the matching entries: ')
                     search_results = search.search_by_string(string)
                     # if now matching entries
-                    userchoice1()
+                    app()
                 except ValueError:
                     print('It looks like there is no matching results')
-                    userchoice1()
+                    app()
 
         elif search_option == 'd':
             while True:
@@ -380,17 +380,18 @@ class Main:
                 try:
                     clear()
                     "\n"
-                    print('here are the matching entries: ')
+                    print('here are the matching entries: \n')
                     search_results = search.search_by_employee(string)
-                    userchoice1()
+                    app()
                 except ValueError:
                     print('It looks like there is no matching results')
-                    userchoice1()
+                    app()
         elif search_option == 'e':
             clear()
-            userchoice1()
+            app()
 
 
 # initiation of Application
 if __name__ == '__main__':
+    initialization()
     app()

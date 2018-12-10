@@ -81,6 +81,30 @@ class MainTests(unittest.TestCase):
         expected_input = main.get_duration()
         self.assertEquals(expected_input, utilities.timedelta(seconds=7380))
 
+    def test_userchoice1(self, Mockinput):
+        user_input = ['a', 'c']
+        Mockinput.side_effect = user_input
+        test_func = main.userchoice1()
+        self.assertEqual(test_func, 'a')
+
+    def test_userchoice2(self, Mockinput):
+        user_input = ['b', 'c']
+        Mockinput.side_effect = user_input
+        test_func = main.userchoice1()
+        self.assertEqual(test_func, 'b')
+
+    def test_new_entry_or_menu(self, Mockinput):
+        user_input = ['a', 'c']
+        Mockinput.side_effect = user_input
+        test_func = main.new_entry_or_menu()
+        self.assertEqual(test_func, 'a')
+
+    def test_new_entry_or_menu2(self, Mockinput):
+        user_input = ['b', 'c']
+        Mockinput.side_effect = user_input
+        test_func = main.new_entry_or_menu()
+        self.assertEqual(test_func, 'b')
+
 
 if __name__ == '__main__':
     unittest.main()
