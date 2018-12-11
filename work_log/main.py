@@ -31,10 +31,10 @@ def get_date():
     while True:
         date = input(
                      'please input a date for'
-                     'the entry in the format mm/dd/yyyy: '
+                     'the entry in the format yyyy/mm/dd: '
                      )
         # tests input against  regex pattern if pattern pails test
-        pattern = re.compile("(\d{2}\/\d{2}\/\d{4})")
+        pattern = re.compile("(\d{4}\/\d{2}\/\d{2})")
         match = pattern.fullmatch(date)
         # if not a match error i
         if not match:
@@ -119,6 +119,13 @@ def userchoice1():
 
 
 def new_entry_or_menu():
+
+    """grabs and validates user choice which determines
+
+    Initialize menu object to display menu items variable menu1 prompts for
+    and stores user input while loop runs until user provides a valid input
+    based upon input the method calls: stores returns input for to passeed
+    """
     while True:
         print('\na) create a new entry\nb) return to main menu')
         entryorMain = input('please type your choice: ')
@@ -135,6 +142,16 @@ def new_entry_or_menu():
 
 
 def data_collection():
+
+    """
+    gathers and stores user input related to entry
+
+    each function is called  and its return value
+    strored in a variable and when all fuctions have been
+    called and input recieved returns the collective values
+    as a tuple
+    """
+
     employee = get_empoyee()
     date = get_date()
     project_name = get_projectname()
@@ -144,23 +161,38 @@ def data_collection():
 
 
 def data_2db():
+    """instantiates an object from class Main and calls method"""
     clear()
     main = Main()
     main.user_entry_data(*data_collection())
 
 
 def search_initiation():
+    """instantiates an object from class Main and calls method"""
     main = Main()
     main.user_search()
 
 
 def submenu():
+    """instantiates an object from class Menu and calls method"""
     clear()
     menu = Menu()
     menu.submenu()
 
 
 def app():
+    """
+    func app() handles control flow for user interaction
+
+    for display of menu and the user navigation through menu
+    and inputs for navigation non menu related func:
+    data_2b() initiates the process for input of data for 
+    log entries, and subsequent storage on db/ func submenu()/
+    and func search_initiation()
+    """
+
+
+
     while True:
         main_m_input = userchoice1()
         if main_m_input == 'a':

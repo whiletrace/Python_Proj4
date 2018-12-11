@@ -17,7 +17,7 @@ class Utility:
         while True:
             try:
                 # String to datetime:
-                string_to_date = datetime.strptime(string, '%m/%d/%Y')
+                string_to_date = datetime.strptime(string, '%Y/%m/%d/')
                 return string_to_date
                 break
             # except if string does not match valid date:
@@ -26,7 +26,7 @@ class Utility:
                 string = input("please input a valid date: ")
                 try:
                     # message this does not seem to be a valid date or date not
-                    string_to_date = datetime.strptime(string, '%m/%d/%Y')
+                    string_to_date = datetime.strptime(string, '%Y/%m/%d/')
                     return string_to_date
                     break
                 except ValueError:
@@ -61,5 +61,5 @@ class Utility:
     def date2string(self, dateobject):
 
         """date2string: datetime to string conversion return a string"""
-        datestring = dateobject.strftime('%m/%d/%Y')
+        datestring = dateobject.strftime('%Y/%m/%d/')
         return datestring

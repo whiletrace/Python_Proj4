@@ -1,9 +1,7 @@
 import unittest
-import pdb
 from unittest.mock import patch
-from unittest.mock import MagicMock
-from unittest.mock import Mock
-import datetime
+
+
 import main
 import menu
 import utilities
@@ -65,6 +63,7 @@ class MainTests(unittest.TestCase):
         Mockinput.assert_called_once()
 
     def test_test_input_get_date(self, Mockinput):
+        """when a string is entered in a correct format a datetime object"""
         user_Input = ['12/23/1999']
         Mockinput.side_effect = user_Input
 
@@ -76,30 +75,35 @@ class MainTests(unittest.TestCase):
                                                              ))
 
     def test_get_duration(self, Mockinput):
+        """when a string is entered in a correct format a timedelta """
         user_Input = ['123']
         Mockinput.side_effect = user_Input
         expected_input = main.get_duration()
         self.assertEquals(expected_input, utilities.timedelta(seconds=7380))
 
     def test_userchoice1(self, Mockinput):
+        """test whether func will accept valid response 'a' """
         user_input = ['a', 'c']
         Mockinput.side_effect = user_input
         test_func = main.userchoice1()
         self.assertEqual(test_func, 'a')
 
     def test_userchoice2(self, Mockinput):
+        """test whether func will accept valid response 'b' """
         user_input = ['b', 'c']
         Mockinput.side_effect = user_input
         test_func = main.userchoice1()
         self.assertEqual(test_func, 'b')
 
     def test_new_entry_or_menu(self, Mockinput):
+        """test whether func will accept valid response 'a' """
         user_input = ['a', 'c']
         Mockinput.side_effect = user_input
         test_func = main.new_entry_or_menu()
         self.assertEqual(test_func, 'a')
 
     def test_new_entry_or_menu2(self, Mockinput):
+        """test whether func will accept valid response 'b' """
         user_input = ['b', 'c']
         Mockinput.side_effect = user_input
         test_func = main.new_entry_or_menu()
