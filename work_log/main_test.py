@@ -64,7 +64,7 @@ class MainTests(unittest.TestCase):
 
     def test_test_input_get_date(self, Mockinput):
         """when a string is entered in a correct format a datetime object"""
-        user_Input = ['12/23/1999']
+        user_Input = ['1999/12/23']
         Mockinput.side_effect = user_Input
 
         expected_input = main.get_date()

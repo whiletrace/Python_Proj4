@@ -31,7 +31,7 @@ def get_date():
     while True:
         date = input(
                      'please input a date for'
-                     'the entry in the format yyyy/mm/dd: '
+                     'the entry in the format yyyy/mm/dd:'
                      )
         # tests input against  regex pattern if pattern pails test
         pattern = re.compile("(\d{4}\/\d{2}\/\d{2})")
@@ -191,8 +191,6 @@ def app():
     and func search_initiation()
     """
 
-
-
     while True:
         main_m_input = userchoice1()
         if main_m_input == 'a':
@@ -310,10 +308,10 @@ class Main:
 
                 date = input(
                                'please input a date to search '
-                               'in the format mm/dd/yyyy: '
+                               'in the format yyyy/mm/dd: '
                             )
                 # tests input against  regex pattern
-                pattern=re.compile("(\d{2}\/\d{2}\/\d{4})")
+                pattern=re.compile("(\d{4}\/\d{2}\/\d{2})")
                 match = pattern.fullmatch(date)
                 # if pattern fails test
                 # messsage will prompt until correct format recieved
